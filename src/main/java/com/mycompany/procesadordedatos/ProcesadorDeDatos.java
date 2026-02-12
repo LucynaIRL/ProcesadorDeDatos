@@ -7,7 +7,8 @@ public class ProcesadorDeDatos {
         int columnaElegida =0;
 
         Lector lector = new Lector(ruta);
-        System.out.println(lector.getConteos(hojaElegida, columnaElegida));
+        System.out.println(lector.getConteos(hojaElegida, columnaElegida));        
+        GUI gui = new GUI();
         
     }
 }
