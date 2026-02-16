@@ -18,7 +18,7 @@ public class GUI extends JFrame{
         this.add(panelCentral,BorderLayout.CENTER);
         this.add(panelSuperior,BorderLayout.NORTH);
         this.setSize(500,500);
-        
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         
  
