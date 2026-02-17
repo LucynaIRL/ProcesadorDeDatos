@@ -9,6 +9,6 @@ public class ProcesadorDeDatos {
         Lector lector = new Lector(ruta);
         System.out.println(lector.getConteos(hojaElegida, columnaElegida));        
         GUI gui = new GUI();
-        
+        gui.setPregunta("Elije la ruta para tu archivo");
     }
 }

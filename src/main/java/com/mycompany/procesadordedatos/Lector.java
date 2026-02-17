@@ -49,7 +49,9 @@ public class Lector {
         for (int i = 1; i < hoja.getLastRowNum()+1;i++) {
             
             Row fila = hoja.getRow(i);
+            if(fila == null) continue;
             Cell clave = fila.getCell(columnaElegida);
+            if(clave == null) continue;
             
             contador.put(clave.toString(), contador.getOrDefault(clave.toString(), 0)+1);
         }
