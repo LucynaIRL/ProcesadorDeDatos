@@ -6,14 +6,13 @@ import java.awt.FlowLayout;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
@@ -38,10 +37,10 @@ public class GUI extends JFrame implements ActionListener{
     boolean cargando;
     //Clases del proyecto
     Lector lector;
+    JFileChooser chooser = new JFileChooser();
     
     
-    
-//Cionstructor de la GUI
+//Constructor de la GUI
     public GUI () {
 //Componentes panel superior
 
@@ -105,7 +104,7 @@ public class GUI extends JFrame implements ActionListener{
     }
     
 // función para agregar las hojas leídas al combobox hojas
-    public void setHojas(ArrayList<String> arreglo) {
+    public void setHojas(List<String> arreglo) {
         cargando = true;
         this.Hojas.removeAllItems();
         for(String item : arreglo){
@@ -115,7 +114,7 @@ public class GUI extends JFrame implements ActionListener{
     }
     
 // función para agregar las columnas leídas al combobox columnas
-    public void setColumnas(ArrayList<String>arreglo){ 
+    public void setColumnas(List<String>arreglo){ 
         cargando = true;
         this.Columnas.removeAllItems();
         for(String item : arreglo) {
@@ -129,12 +128,10 @@ public class GUI extends JFrame implements ActionListener{
         
 // Seleccionar archivo a leer
         if (e.getSource() == archivo) {
-            JFileChooser chooser = new JFileChooser();
             FileFilter filter = new FileNameExtensionFilter("Excel files","xlsx");
             chooser.setFileFilter(filter);
-            int resultado = chooser.showOpenDialog(null);
-            if (resultado == JFileChooser.APPROVE_OPTION) {
-                lector = new Lector(chooser.getSelectedFile().getAbsolutePath());
+            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                lector = new Lector(chooser.getSelectedFile());
                 this.setHojas(lector.getHojas());
                 Hojas.setVisible(true);
                 Columnas.setVisible(false);
