@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -14,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -27,7 +27,7 @@ public class GUI extends JFrame implements ActionListener{
     //Contenedores
     JPanel panelSuperior;
     JPanel panelCentral;
-    ScrollPane scrollpane;
+    JScrollPane scrollpane;
     //Tabla
     JTable tabla;
     DefaultTableModel modelo;
@@ -85,16 +85,15 @@ public class GUI extends JFrame implements ActionListener{
         tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         
 //Creación del contenedor de la tabla
-        scrollpane = new ScrollPane();
+        scrollpane = new JScrollPane(tabla);
         scrollpane.setVisible(false);
-        scrollpane.add(tabla);
         panelCentral.add(scrollpane,BorderLayout.CENTER);
         
 // Frame
         logo = new ImageIcon(getClass().getResource("/LogoChapingo.png"));
         this.setIconImage(logo.getImage());
         this.setTitle("Procesador de Excel");
-        this.setSize(600,500);
+        this.setSize(800,500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 // adds del frame
         this.add(panelCentral,BorderLayout.CENTER);
@@ -131,6 +130,9 @@ public class GUI extends JFrame implements ActionListener{
             FileFilter filter = new FileNameExtensionFilter("Excel files","xlsx");
             chooser.setFileFilter(filter);
             if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                if (lector != null) {
+                    lector.close();
+                }
                 lector = new Lector(chooser.getSelectedFile());
                 this.setHojas(lector.getHojas());
                 Hojas.setVisible(true);
