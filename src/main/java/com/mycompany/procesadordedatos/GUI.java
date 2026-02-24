@@ -5,8 +5,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -154,7 +156,11 @@ public class GUI extends JFrame implements ActionListener{
             if(cargando) return;
             modelo.setRowCount(0);
             Map<String, Integer> conteos = lector.getConteos(Hojas.getSelectedItem().toString(), Columnas.getSelectedIndex());
-            for (Map.Entry<String,Integer> entry : conteos.entrySet()) {
+            Map <String,Integer>conteosOrdenado;
+            conteosOrdenado = conteos.entrySet().stream().sorted(Map.Entry.<String,Integer>comparingByValue().reversed()).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,(e1,e2)->e1,LinkedHashMap::new));
+            
+            
+            for (Map.Entry<String,Integer> entry : conteosOrdenado.entrySet()) {
                 modelo.addRow(new Object[] {entry.getKey(),entry.getValue()});
             }
             tabla.setEnabled(false);
