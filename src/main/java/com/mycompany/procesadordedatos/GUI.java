@@ -158,13 +158,13 @@ public class GUI extends JFrame implements ActionListener{
             Map<String, Integer> conteos = lector.getConteos(Hojas.getSelectedItem().toString(), Columnas.getSelectedIndex());
             Map <String,Integer>conteosOrdenado;
             conteosOrdenado = conteos.entrySet().stream().sorted(Map.Entry.<String,Integer>comparingByValue().reversed()).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,(e1,e2)->e1,LinkedHashMap::new));
-            
-            
             for (Map.Entry<String,Integer> entry : conteosOrdenado.entrySet()) {
                 modelo.addRow(new Object[] {entry.getKey(),entry.getValue()});
             }
             tabla.setEnabled(false);
             scrollpane.setVisible(true);
+            panelCentral.revalidate();
+            panelCentral.repaint();
         }
         
     }
