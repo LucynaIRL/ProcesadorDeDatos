@@ -1,7 +1,11 @@
 package com.mycompany.procesadordedatos;
-public class ProcesadorDeDatos {
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+    @SpringBootApplication
+
+public class ProcesadorDeDatos {
     public static void main(String[] args) {      
-        new GUI();
+        SpringApplication.run(ProcesadorDeDatos.class, args);
     }
 }

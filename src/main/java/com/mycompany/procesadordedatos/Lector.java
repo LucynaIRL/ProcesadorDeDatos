@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.util.CellReference;
@@ -19,6 +21,7 @@ import org.apache.poi.xssf.model.StylesTable;
 import org.apache.poi.xssf.usermodel.XSSFComment;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 public class Lector {
     private static class StopParsingException extends RuntimeException {}
@@ -45,7 +48,7 @@ public class Lector {
                 hojas.add (iterador.getSheetName());
             }
 
-        } catch (Exception ex) {
+        } catch (IOException | OpenXML4JException ex) {
             ex.printStackTrace();
         } 
                     return hojas;
@@ -102,7 +105,7 @@ public class Lector {
         } catch (StopParsingException e) {
             
         }
-        catch (Exception e) {
+        catch (IOException | ParserConfigurationException | OpenXML4JException | SAXException e) {
             e.printStackTrace();
         }
         return columnas;
@@ -153,12 +156,13 @@ public class Lector {
             parser.setContentHandler(contentHandler);
             parser.parse(new InputSource(hoja));
             hoja.close();
-        } catch (Exception e) {
+        } catch (IOException | ParserConfigurationException | OpenXML4JException | SAXException e) {
             e.printStackTrace();
         }
         
         return contador;
     }
+    // Cerrar el archivo
     public void close () {
         if (paquete != null){
             try {
