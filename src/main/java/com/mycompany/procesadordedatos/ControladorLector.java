@@ -22,7 +22,7 @@ public class ControladorLector {
         return hojas;
     }
     @PostMapping("/columnas")
-    public List<String> getColumnas (@RequestParam("archivo")MultipartFile archivo,@RequestParam String hojaElegida) throws IOException{
+    public List<String> getColumnas (@RequestParam("archivo")MultipartFile archivo,@RequestParam("hoja") String hojaElegida) throws IOException{
         File temp = File.createTempFile("tempExcel", ".xlsx");
         archivo.transferTo(temp);
         Lector lector = new Lector(temp);
