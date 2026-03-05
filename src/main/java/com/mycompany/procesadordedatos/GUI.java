@@ -135,7 +135,7 @@ public class GUI extends JFrame implements ActionListener{
                 if (lector != null) {
                     lector.close();
                 }
-                lector = new Lector(chooser.getSelectedFile());
+                lector = new Lector(chooser.getSelectedFile().getAbsolutePath());
                 this.setHojas(lector.getHojas());
                 Hojas.setVisible(true);
                 Columnas.setVisible(false);

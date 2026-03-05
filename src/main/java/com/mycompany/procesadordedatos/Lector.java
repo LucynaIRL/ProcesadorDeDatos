@@ -1,5 +1,4 @@
 package com.mycompany.procesadordedatos;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -25,10 +24,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 public class Lector {
     private static class StopParsingException extends RuntimeException {}
-    File archivo;
+    String archivo;
     private OPCPackage paquete;
     // Constructor que recibe la ruta del archivo excel a leer
-    public Lector(File archivo){
+    public Lector(String archivo){
         this.archivo = archivo;
         try {
             this.paquete = OPCPackage.open(archivo);
